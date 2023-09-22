@@ -330,4 +330,4 @@ def contar_palabras(string):
 
 texto = "Este es un ejemplo. Este es un texto de ejemplo, y este es el final del ejemplo."
 resultado = contar_palabras(texto)
-print(resultado)
+# print(resultado)
