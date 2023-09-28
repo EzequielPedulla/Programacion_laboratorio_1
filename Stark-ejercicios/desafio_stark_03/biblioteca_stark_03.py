@@ -485,6 +485,6 @@ def imprimir_cantidad_heroes_tipo(valores_tipo: dict, tipo_dato: str):
         imprimir_dato(mensaje)
 
 
-# diccionario_valores = calcular_cantidad_tipo(lista_personajes, 'color_pelo')
+diccionario_valores = calcular_cantidad_tipo(lista_personajes, 'color_pelo')
 
-# (imprimir_cantidad_heroes_tipo(diccionario_valores, 'color_pelo'))
+(imprimir_cantidad_heroes_tipo(diccionario_valores, 'color_pelo'))
