@@ -11,6 +11,11 @@ def devuelve_mayusculas(palabra: str) -> str.upper:
 
 # print(devuelve_mayusculas('Hola mundo'))
 
+# def cadena_mayusculas(cadena): return cadena.upper() #con lambda
+
+
+# print(cadena_mayusculas('hola'))
+
 
 # 2
 
@@ -27,14 +32,36 @@ def devuelve_minusculas(palabra: str) -> str.lower:
 
 def devuelve_nuevo_str(palabra_1, palabra_2: str) -> str:
 
-    nueva_palabra = f'{palabra_1} {palabra_2}'
-
+    # nueva_palabra = f'{palabra_1} {palabra_2}' f string
+    nueva_palabra = '{0} {1}'.format(palabra_1, palabra_2)
     return nueva_palabra
 
 
+print(devuelve_nuevo_str('Hola', 'mundo'))
+
 # print(devuelve_nuevo_str('Hola', 'Mundo'))
 
-# 4
+
+# def cadenas_concatenadas(palabra_1, palabra_2): return f'{palabra_1,palabra_2}' #lambda
+
+
+# def concatener_cadenas_join(cadena_1, cadena_2):
+
+#     listas_cadenas = [cadena_1, cadena_2]
+
+#     cadena_final = ' '.join(listas_cadenas)
+
+#     return cadena_final
+
+
+# cadena = concatener_cadenas_join('Hola', 'Mundo')
+
+# print(cadena)
+
+# -----------------------------------------------------------------------------------------------------------------------------
+
+
+# 4 Escribir una función que tome un string y devuelva el número de caracteres que tiene el string.
 
 
 def toma_str_devuelve_num_caracteres(palabra: str) -> (str):
@@ -46,25 +73,40 @@ def toma_str_devuelve_num_caracteres(palabra: str) -> (str):
 
 # print(toma_str_devuelve_num_caracteres('Holaquetal'))
 
-# 5
+
+# -----------------------------------------------------------------------------------------------------------------------------
+
+# 5 Escribir una función que tome un string y un carácter y devuelva el número de veces que aparece ese carácter en el string.
+
 
 def toma_str_devuelve_veces_aparece(palabra: str, caracter):
-
-    palabra.count
-
-
-# 6
-
-def toma_str_devuelve_lista(palabra: str) -> list:
-
-    palabra = palabra.split(',')
-
-    return palabra
+    contador = palabra.count(caracter)
+    return contador
 
 
-# print(toma_str_devuelve_lista('Hola,como,estas '))
+# resultado = toma_str_devuelve_veces_aparece('palabra', 'l')
+# print(resultado)
 
-# 7
+
+# 6 Escribir una función que tome un string y un carácter y devuelva una lista con todas las palabras en el string que contienen ese carácter.
+
+
+def toma_str_devuelve_lista(palabra: str, caracter: str) -> list:
+
+    # la coma representa por lo que se quiere separar las listas
+    palabras = palabra.split(',')
+
+    palabras_con_caracter = list(
+        filter(lambda palabra: caracter in palabra, palabras))
+
+    return palabras_con_caracter
+
+
+# print(toma_str_devuelve_lista('Hola,como,estas', 'o'))
+
+# -----------------------------------------------------------------------------------------------------------------------------
+
+# 7 Escribir una función que tome un string y devuelva el mismo string con los espacios eliminados
 
 
 def toma_str_elimina_espacios(palabra: str) -> list:
@@ -76,18 +118,16 @@ def toma_str_elimina_espacios(palabra: str) -> list:
 
 # print(toma_str_elimina_espacios('                  Hola,como,estas               '))
 
-# 8
+# -----------------------------------------------------------------------------------------------------------------------------
+
+# 8 Escribir una función que reciba dos string (nombre y apellido) y devuelva un diccionario con el nombre y apellido, eliminando los espacios del comienzo y el final y colocando la primer letra en mayúscula
 
 
 def recibe_nombre_apellido_devuelve_dicc(nombre: str, apellido: str) -> list:
 
-    nombre = nombre.strip()
+    nombre = nombre.strip().capitalize()
 
-    apellido = apellido.strip()
-
-    nombre = nombre.capitalize()
-
-    apellido = apellido.capitalize()
+    apellido = apellido.strip().capitalize()
 
     resultado = {
         'nombre': nombre,
@@ -97,11 +137,16 @@ def recibe_nombre_apellido_devuelve_dicc(nombre: str, apellido: str) -> list:
     return resultado
 
 
-# print(recibe_nombre_apellido_devuelve_dicc(
-#     '             Goku                ', '        KARAto             '))
+print(recibe_nombre_apellido_devuelve_dicc(
+    '             pepe               ', '        argento             '))
 
 
-# 9
+# -----------------------------------------------------------------------------------------------------------------------------
+
+
+# 9 Escribir una función que tome una lista de nombres y los una en una sola cadena separada por un salto de línea, por ejemplo: ["Juan", "María", "Pedro"] ->
+# "Juan\nMaría\nPedro".
+
 
 def unir_nombres_con_salto_de_linea(nombres: list[str]):
 
@@ -113,7 +158,7 @@ def unir_nombres_con_salto_de_linea(nombres: list[str]):
 nombres = ["Juan", "María", "Pedro"]
 resultado = unir_nombres_con_salto_de_linea(nombres)
 
-# print(resultado)
+print(resultado)
 
 # 10
 
