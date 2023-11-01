@@ -43,13 +43,13 @@ def crear_datos(lista_heroes: list, texto: str):
 
 
 def crear_csv(path: str, modo: str, lista: list) -> None:
-    with open(path, modo) as archivo_heroes:
+    with open(path, modo) as archivo_csv:
         texto = ''
         texto = crear_encabezados(lista, texto)
         texto = crear_datos(lista, texto)
 
         print(texto)
-        archivo_heroes.write(texto)
+        archivo_csv.write(texto)
 
 
 def leer_csv(path: str, modo: str) -> list[dict]:

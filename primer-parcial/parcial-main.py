@@ -1,6 +1,7 @@
 
 from biblioteca import *
 from jugador import *
+from equipo import Equipo
 
 
 def imprimir_menu_parcial():
@@ -13,10 +14,13 @@ def imprimir_menu_parcial():
     print("5. Calcular y mostrar el promedio de puntos por partido de todo el equipo")
     print("6. Verificar si un jugador es miembro del Salón de la Fama del baloncesto")
     print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales")
-    print("8. Salir")
+    print("8. Ordenar jugadores por promedio de rebotes y exportar a CSV")
+    print("9. Exportar la lista de jugadores ordenada por rebotes a un archivo JSON")
+    print("10. Salir")
 
 
 def menu_parcial():
+
     while True:
         limpiar_consola()
         imprimir_menu_parcial()
@@ -24,7 +28,7 @@ def menu_parcial():
 
         if opcion.isdigit():
             opcion = int(opcion)
-            if 1 <= opcion <= 8:
+            if 1 <= opcion <= 10:
                 if opcion == 1:
                     print('Mostrar la lista de todos los jugadores del Dream Team')
                     print(mostrar_lista_jugadores(equipo))
@@ -78,11 +82,53 @@ def menu_parcial():
                     resultado = encontrar_jugador_con_mas_rebotes(equipo)
 
                     print(resultado)
+                elif opcion == 8:
+                    print('Opciones disponibles para la opcion 8: ')
+                    print(
+                        'A) Ordenar jugadores por promedio de rebotes y mostrar el listado.')
+                    print(
+                        'B) Ordenar jugadores por promedio de rebotes y exportar a CSV.')
+                    print(
+                        'C) Exportar la lista de jugadores ordenada por rebotes a un archivo JSON')
 
-            elif opcion == 8:
+                    subopcion = input(
+                        'Elija una opcion (A/B/C): ').strip().lower()
+
+                    if subopcion == 'a':
+                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                            equipo)
+                        mostrar_lista_jugadores(
+                            lista_jugadores_rebotes_ordenada)
+                    elif subopcion == 'b':
+                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                            equipo)
+                        nombre_archivo = input(
+                            'Ingrese el nombre del archivo: ')
+
+                        guardar_jugadores_en_csv(
+                            lista_jugadores_rebotes_ordenada, nombre_archivo)
+                    elif subopcion == 'c':
+
+                        print(
+                            "c. Exportar la lista de jugadores ordenada por rebotes a un archivo JSON")
+                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                            equipo)
+                        archivo_json = guardar_lista_jugadores_en_json(
+                            lista_jugadores_rebotes_ordenada)
+
+                        if archivo_json:
+                            print(
+                                f'Los datos se han guardado en {archivo_json}')
+                    else:
+                        print('Opciono no valida seleccione "A" o "B"')
+                # elif opcion == 9:
+
+            elif opcion == 10:
                 break
         else:
             print('Opción no válida. Ingrese un número válido.')
 
 
-menu_parcial()
+if __name__ == '__main__':
+
+    menu_parcial()

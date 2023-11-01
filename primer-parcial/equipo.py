@@ -1,7 +1,6 @@
 import json
 from jugador import *
 from estadisticas import *
-
 # definimos la clase Equipo se va a encargar de cargar la informacion de un archivo json
 # ademas de crear objetos de la clase jugador con la informacion
 

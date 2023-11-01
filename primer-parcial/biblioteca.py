@@ -14,10 +14,10 @@ def limpiar_consola():
         os.system('clear')
 
 
-def mostrar_lista_jugadores(equipo):
+def mostrar_lista_jugadores(lista_jugadores):
     # iniciamos la lista vacia de jugadores
     lista_jugadores = []
-    # iteramos el objeto equipo que contiene los jugadores
+    # iteramos la lista que contiene los jugadores
     for jugador in equipo.jugadores:
         lista_jugadores.append(f'{jugador.nombre} - {jugador.posicion}')
 
@@ -177,3 +177,55 @@ def encontrar_jugador_con_mas_rebotes(equipo):
             f"El jugador con más rebotes totales es: {jugador_con_mas_rebotes} con {maximo_rebotes} rebotes.")
     else:
         print("No se encontraron datos de rebotes en el equipo.")
+
+
+def ordenar_y_guardar_csv(equipo):
+    lista_jugadores_rebotes = []
+
+    for jugador in equipo.jugadores:
+        nombre = jugador.nombre
+        promedio_rebotes = jugador.estadisticas.promedio_rebotes_por_partido
+        lista_jugadores_rebotes.append((nombre, promedio_rebotes))
+
+    lista_jugadores_rebotes_ordenada = sorted(
+        lista_jugadores_rebotes, key=lambda x: x[1], reverse=True)
+
+    for nombre, promedio_rebotes in lista_jugadores_rebotes_ordenada:
+        print(f'{nombre}: {promedio_rebotes}')
+
+    return lista_jugadores_rebotes_ordenada
+
+
+def guardar_jugadores_en_csv(jugadores, nombre_archivo):
+    try:
+        with open(nombre_archivo, mode='w', encoding='utf-8') as archivo_csv:
+            encabezado = ['nombre', 'rebotes totales']
+            archivo_csv.write(','.join(encabezado) + '\n')
+
+            for jugador in jugadores:
+                nombre = jugador[0]
+                rebotes_totales = jugador[1]
+                linea = f'{nombre},{rebotes_totales}\n'
+                archivo_csv.write(linea)
+
+        print(f'Los datos se guardaron en {nombre_archivo}')
+    except Exception as e:
+        print(f'Error al guardar datos: {e}')
+
+
+def guardar_lista_jugadores_en_json(lista_jugadores_rebotes_ordenada):
+    nombre_archivo = input(
+        'Ingrese el nombre del archivo JSON para guardar los datos: ')
+
+    patron = r'^[a-zA-Z0-9_]+\.json$'
+
+    if re.match(patron, nombre_archivo):
+        try:
+            with open(nombre_archivo, 'w', encoding='utf-8') as archivo_json:
+                json.dump(lista_jugadores_rebotes_ordenada, archivo_json)
+                print(f'Los datos se han guardado en {nombre_archivo}')
+            return nombre_archivo  # Retorna el nombre del archivo
+        except Exception:
+            print('Error al guardar el archivo')
+    else:
+        print('Nombre de archivo no válido')
