@@ -90,17 +90,18 @@ def menu_parcial():
                         'B) Ordenar jugadores por promedio de rebotes y exportar a CSV.')
                     print(
                         'C) Exportar la lista de jugadores ordenada por rebotes a un archivo JSON')
+                    print('D) Guardar jugadores ordenados en base de datos')
 
                     subopcion = input(
-                        'Elija una opcion (A/B/C): ').strip().lower()
+                        'Elija una opcion (A/B/C/D): ').strip().lower()
 
                     if subopcion == 'a':
-                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                        lista_jugadores_rebotes_ordenada = ordenar_jugadores_promedio_rebotes(
                             equipo)
                         mostrar_lista_jugadores(
                             lista_jugadores_rebotes_ordenada)
                     elif subopcion == 'b':
-                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                        lista_jugadores_rebotes_ordenada = ordenar_jugadores_promedio_rebotes(
                             equipo)
                         nombre_archivo = input(
                             'Ingrese el nombre del archivo: ')
@@ -111,7 +112,7 @@ def menu_parcial():
 
                         print(
                             "c. Exportar la lista de jugadores ordenada por rebotes a un archivo JSON")
-                        lista_jugadores_rebotes_ordenada = ordenar_y_guardar_csv(
+                        lista_jugadores_rebotes_ordenada = ordenar_jugadores_promedio_rebotes(
                             equipo)
                         archivo_json = guardar_lista_jugadores_en_json(
                             lista_jugadores_rebotes_ordenada)
@@ -119,6 +120,15 @@ def menu_parcial():
                         if archivo_json:
                             print(
                                 f'Los datos se han guardado en {archivo_json}')
+                    elif subopcion == 'd':
+                        print("d. Guardar jugadores ordenados en base de datos ")
+
+                        lista_jugadores_rebotes_ordenada = ordenar_jugadores_promedio_rebotes(
+                            equipo)
+                        crear_tabla_jugadores()
+                        guardar_jugadores_ordenados_en_db(
+                            lista_jugadores_rebotes_ordenada)
+
                     else:
                         print('Opciono no valida seleccione "A" o "B"')
                 elif opcion == 9:
@@ -136,11 +146,12 @@ def menu_parcial():
                         lista_jugadores_suma_robos_bloqueos = ordenar_y_mostrar_jugadores_valor_sumado(
                             equipo)
 
-                    if subopcion == 'b':
+                    elif subopcion == 'b':
+
                         mostrar_porcentaje_valor_sumado(
                             lista_jugadores_suma_robos_bloqueos)
 
-                    if subopcion == 'c':
+                    elif subopcion == 'c':
 
                         cantidad_jugadores_mostrar = int(input(
                             'Ingrese la cantidad de jugadores que quiere mostrar'))

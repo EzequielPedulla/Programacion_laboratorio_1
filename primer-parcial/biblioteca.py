@@ -3,6 +3,7 @@ import re
 import os
 from equipo import *
 import csv
+import sqlite3
 # Primer parte
 
 
@@ -179,7 +180,7 @@ def encontrar_jugador_con_mas_rebotes(equipo):
         print("No se encontraron datos de rebotes en el equipo.")
 
 
-def ordenar_y_guardar_csv(equipo):
+def ordenar_jugadores_promedio_rebotes(equipo):
     lista_jugadores_rebotes = []
 
     for jugador in equipo.jugadores:
@@ -283,3 +284,38 @@ def mostrar_porcentaje_valor_sumado(jugadores_suma_robos_bloqueos):
 
     else:
         print('la lista esta vacia')
+
+
+def crear_tabla_jugadores():
+
+    with sqlite3.connect('base_de_datos.db') as conexion:
+        try:
+            sentencia = '''CREATE TABLE IF NOT EXISTS jugadores_ordenados
+            (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL,
+                promedio_rebotes INTEGER NOT NULL
+            )'''
+            conexion.execute(sentencia)
+            print('Se creo la tabla de jugadores')
+        except sqlite3.OperationalError:
+            print('La tabla jugadores ya existe')
+
+
+def guardar_jugadores_ordenados_en_db(jugadores_ordenados):
+
+    with sqlite3.connect('base_de_datos.db') as conexion:
+
+        try:
+            cursor = conexion.cursor()
+
+            for nombre, promedio_rebotes in jugadores_ordenados:
+
+                cursor.execute(
+                    'INSERT INTO jugadores_ordenados (nombre, promedio_rebotes) VALUES (?, ?)', (nombre, promedio_rebotes))
+
+            conexion.commit()
+
+            print(f'Datos de jugadores ordenados se han guardado en la base de datos')
+        except sqlite3.Error as e:
+            print(f'Error al guardar en base de datos: {str(e)}')
