@@ -15,7 +15,7 @@ def imprimir_menu_parcial():
     print("6. Verificar si un jugador es miembro del Salón de la Fama del baloncesto")
     print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales")
     print("8. Ordenar jugadores por promedio de rebotes y exportar a CSV")
-    print("9. Exportar la lista de jugadores ordenada por rebotes a un archivo JSON")
+    print("9. ordenar los datos por el jugador que sumando los robos totales más los bloqueos totales")
     print("10. Salir")
 
 
@@ -121,8 +121,31 @@ def menu_parcial():
                                 f'Los datos se han guardado en {archivo_json}')
                     else:
                         print('Opciono no valida seleccione "A" o "B"')
-                # elif opcion == 9:
+                elif opcion == 9:
+                    print(
+                        'Ordenar jugadores por la suma de robos totales y bloqueos totales:')
+                    print('A) Ordenar los jugadores por el valor sumado.')
+                    print(
+                        'B) Listar todos los jugadores ordenados y mostrar el porcentaje de este valor.')
+                    print(
+                        'C) Crear un filtro para mostrar una cantidad específica de jugadores ordenados.')
 
+                    subopcion = input(
+                        'Elija una opcion (A/B/C): ').strip().lower()
+                    if subopcion == 'a':
+                        lista_jugadores_suma_robos_bloqueos = ordenar_y_mostrar_jugadores_valor_sumado(
+                            equipo)
+
+                    if subopcion == 'b':
+                        mostrar_porcentaje_valor_sumado(
+                            lista_jugadores_suma_robos_bloqueos)
+
+                    if subopcion == 'c':
+
+                        cantidad_jugadores_mostrar = int(input(
+                            'Ingrese la cantidad de jugadores que quiere mostrar'))
+                        ordenar_y_mostrar_jugadores_valor_sumado(
+                            equipo, cantidad_jugadores_mostrar)
             elif opcion == 10:
                 break
         else:

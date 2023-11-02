@@ -229,3 +229,57 @@ def guardar_lista_jugadores_en_json(lista_jugadores_rebotes_ordenada):
             print('Error al guardar el archivo')
     else:
         print('Nombre de archivo no válido')
+
+
+def calcular_suma_robos_y_bloqueos(jugador):
+    estadisticas = jugador.estadisticas
+
+    return estadisticas.robos_totales + estadisticas.bloqueos_totales
+
+
+def ordenar_y_mostrar_jugadores_valor_sumado(equipo, cantidad_jugadores=None):
+
+    lista_jugadores_suma_robos_bloqueos = []
+
+    for jugador in equipo.jugadores:
+
+        nombre = jugador.nombre
+        suma_robos_bloqueos = calcular_suma_robos_y_bloqueos(jugador)
+        lista_jugadores_suma_robos_bloqueos.append(
+            (nombre, suma_robos_bloqueos))
+
+    lista_jugadores_ordenada = sorted(
+        lista_jugadores_suma_robos_bloqueos, key=lambda x: x[1], reverse=True)
+
+    if cantidad_jugadores:
+        lista_jugadores_ordenada = lista_jugadores_ordenada[:cantidad_jugadores]
+
+    for nombre, suma_robos_bloqueos in lista_jugadores_ordenada:
+        print(f'{nombre} : {suma_robos_bloqueos}')
+
+    return lista_jugadores_suma_robos_bloqueos
+
+
+def calcular_max_valor(jugadores_suma_robos_bloqueos):
+
+    if jugadores_suma_robos_bloqueos:
+
+        # suponemos que el maximo es el primero
+        max_valor = jugadores_suma_robos_bloqueos[0][1]
+        for nombre, valor in jugadores_suma_robos_bloqueos:
+            if valor > max_valor:
+                max_valor = valor
+        return max_valor
+
+
+def mostrar_porcentaje_valor_sumado(jugadores_suma_robos_bloqueos):
+
+    if jugadores_suma_robos_bloqueos:
+        max_valor = calcular_max_valor(jugadores_suma_robos_bloqueos)
+
+        for nombre, valor in jugadores_suma_robos_bloqueos:
+            porcentaje = (valor / max_valor) * 100
+            print(f'{nombre} : {porcentaje:.2f} % del valor maximo ')
+
+    else:
+        print('la lista esta vacia')
