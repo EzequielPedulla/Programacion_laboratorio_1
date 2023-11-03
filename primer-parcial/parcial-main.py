@@ -16,7 +16,8 @@ def imprimir_menu_parcial():
     print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales")
     print("8. Ordenar jugadores por promedio de rebotes y exportar a CSV")
     print("9. ordenar los datos por el jugador que sumando los robos totales más los bloqueos totales")
-    print("10. Salir")
+    print("10. Tabla posiciones")
+    print("11. Salir")
 
 
 def menu_parcial():
@@ -114,8 +115,10 @@ def menu_parcial():
                             "c. Exportar la lista de jugadores ordenada por rebotes a un archivo JSON")
                         lista_jugadores_rebotes_ordenada = ordenar_jugadores_promedio_rebotes(
                             equipo)
+                        nombre_archivo = input(
+                            'Ingrese el nombre del archivo JSON para guardar los datos: ')
                         archivo_json = guardar_lista_jugadores_en_json(
-                            lista_jugadores_rebotes_ordenada)
+                            lista_jugadores_rebotes_ordenada, nombre_archivo)
 
                         if archivo_json:
                             print(
@@ -157,9 +160,14 @@ def menu_parcial():
                             'Ingrese la cantidad de jugadores que quiere mostrar'))
                         ordenar_y_mostrar_jugadores_valor_sumado(
                             equipo, cantidad_jugadores_mostrar)
-            elif opcion == 10:
+                elif opcion == 10:
+                    posiciones_validas = tabla_posiciones(equipo)
+                    guardar_tabla_posiciones_db(equipo)
+                    print(posiciones_validas)
+            elif opcion == 11:
                 break
         else:
+
             print('Opción no válida. Ingrese un número válido.')
 
 
